@@ -2,9 +2,9 @@ output:
   logstash:
     enabled: true
     hosts:
-      - 172.20.0.0:5044
+      - 172.20.0.10:5044
     timeout: 15
-    #ssl:
+    # ssl:
     #  certificate_authorities:
     #  - /etc/pki/tls/certs/logstash-beats.crt
 
