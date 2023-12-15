@@ -1,0 +1,6 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+output.elasticsearch:
+  hosts: ["172.20.0.10:9200"]

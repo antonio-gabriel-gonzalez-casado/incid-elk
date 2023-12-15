@@ -23,6 +23,27 @@ services:
       - elk-net
     ports:
       - "80:80"
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    networks:
+      - elk-net
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:8.11.1
+    container_name: metricbeat
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - elk-net
+    depends_on:
+      - nginx-filebeat
+      - mysql
+      - elk
    
 networks:
   elk-net:
