@@ -33,7 +33,9 @@ services:
       - elk-net
 
   metricbeat:
-    image: docker.elastic.co/beats/metricbeat:8.11.1
+    build:
+      context: ./metricbeat
+      dockerfile: Dockerfile
     container_name: metricbeat
     user: root
     volumes:
