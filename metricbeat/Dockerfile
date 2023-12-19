@@ -1,15 +1,15 @@
-# Usa la imagen base oficial de Metricbeat
+# Usar la imagen base oficial de Metricbeat
 FROM docker.elastic.co/beats/metricbeat:8.11.1
 
-# Cambia al usuario root para poder cambiar los permisos
+# Cambiar al usuario root para poder cambiar los permisos
 USER root
 
-# Copia tu configuración personalizada de Metricbeat en la imagen
+# Copiar la configuración personalizada de Metricbeat en la imagen
 COPY metricbeat.yml /usr/share/metricbeat/metricbeat.yml
 COPY nginx.yml /usr/share/metricbeat/modules.d/nginx.yml
 COPY mysql.yml /usr/share/metricbeat/modules.d/mysql.yml
 
-# Cambia los permisos del archivo de configuración
+# Cambiar los permisos del archivo de configuración
 RUN chmod go-w /usr/share/metricbeat/metricbeat.yml
 RUN chmod go-w /usr/share/metricbeat/modules.d/nginx.yml
 RUN chmod go-w /usr/share/metricbeat/modules.d/mysql.yml
