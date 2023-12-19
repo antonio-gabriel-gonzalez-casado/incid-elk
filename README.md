@@ -20,6 +20,11 @@ incid-elk/
 │   │
 │   └── Dockerfile          # Dockerfile para construir la imagen de ELK.
 │
+├── metribeat/
+│   ├── Dockerfile    
+│   ├── metricbeat.yml      # Fichero de configuración de metribeat
+│   ├── mysql.yml           # Fichero de configuración del módulo de metribeat mysql.yml
+│   └── nginx.yml           # Fichero de configuración del módulo de metritbeat nginx.yml
 ├── nginx-filebeat/
 │   ├── html/
 │   │   ├── favicon.ico     # Favicon para el sitio web servido por Nginx.
@@ -35,7 +40,7 @@ incid-elk/
 ```
 
 
-## Documentación del Docker Compose del Proyecto ELK con Nginx y Filebeat
+## Documentación del Docker Compose del Proyecto ELK con Nginx, Filebeat y Metricbeat
 
 El archivo `docker-compose.yml` establece la infraestructura necesaria para ejecutar un stack ELK (Elasticsearch, Logstash, Kibana) junto con un servidor web Nginx que también tiene Filebeat instalado para el envío de logs.
 

@@ -1,0 +1,40 @@
+# Ubicación del servicio de kibana: 
+setup.kibana:
+  host: '172.20.0.10:5601'
+
+# Modulos activos
+metricbeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    # Reload module configs as they change:
+    reload.enabled: false
+
+# Autodescubrimiento de Métricas
+metricbeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+# Conjuntos de métricas específicos que se recopilarán de Docker
+metricbeat.modules:
+- module: docker
+  metricsets:
+    - "container"
+    - "cpu"
+    - "diskio"
+    - "healthcheck"
+    - "info"
+    #- "image"
+    - "memory"
+    - "network"
+  hosts: ["unix:///var/run/docker.sock"]
+  period: 10s
+  enabled: true
+
+processors:
+  - add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:172.20.0.10:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
