@@ -25,12 +25,19 @@ services:
       - "80:80"
 
   mysql:
-    image: mysql:5.7
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
+      # Para el servicio MySQL, puedes establecer la variable MYSQL_ROOT_HOST a % 
+      # para permitir conexiones desde cualquier host
+      MYSQL_ROOT_HOST: '%'
     networks:
       - elk-net
+    ports:
+      - "3306:3306"
 
   metricbeat:
     build:
@@ -42,6 +49,23 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - elk-net
+    depends_on:
+      - nginx-filebeat
+      - mysql
+      - elk
+
+  packetbeat:
+    build:
+      context: ./packetbeat
+      dockerfile: Dockerfile
+    container_name: packetbeat
+    networks:
+      - elk-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
     depends_on:
       - nginx-filebeat
       - mysql

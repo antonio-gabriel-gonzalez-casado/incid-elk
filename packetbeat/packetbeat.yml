@@ -1,0 +1,37 @@
+# Configuración de Kibana para el setup inicial.
+setup.kibana:
+  host: "172.20.0.10:5601" # La dirección del servicio Kibana dentro de Docker.
+  
+# Selecciona la interfaz de red donde Packetbeat escuchará el tráfico. 
+# 'any' es una interfaz pseudo que captura todos los paquetes que ve la máquina.
+packetbeat.interfaces.device: any
+
+# Configuración de los reportes de flujo de red.
+packetbeat.flows:
+  timeout: 30s   # Tiempo después del cual se considera que un flujo ha finalizado.
+  period: 10s    # Frecuencia con la que se reportan los flujos.
+
+# Configuración de los protocolos que Packetbeat monitoreará.
+packetbeat.protocols:
+- type: http    # Monitoreo de tráfico HTTP.
+  ports: [80, 8080, 8000, 5000, 9200] # Puertos donde se espera tráfico HTTP.
+
+# Monitoreo de tráfico MySQL.
+- type: mysql
+  ports: [3306] # Puerto por defecto de MySQL.
+
+
+processors:
+- add_cloud_metadata: ~
+
+# Configuración de salida a Elasticsearch.
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elk:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
+
+
+# Habilitar dashboards
+setup.dashboards.enabled: true
+
+

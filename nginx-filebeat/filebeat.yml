@@ -2,7 +2,7 @@ output:
   logstash:
     enabled: true
     hosts:
-      - 172.20.0.10:5044
+      - elk:5044
     timeout: 15
     # ssl:
     #  certificate_authorities:
@@ -21,3 +21,9 @@ filebeat:
       fields_under_root: true
       fields:
         type: nginx-access
+
+
+# Habilitar dashboards
+setup.dashboards.enabled: true
+
+

@@ -2,5 +2,5 @@
   metricsets: ["stubstatus"]
   enabled: true
   period: 10s
-  hosts: ["172.20.0.10:80"]
+  hosts: ["nginx-filebeat:80"]
   server_status_path: "nginx_status"

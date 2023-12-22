@@ -1,6 +1,6 @@
 # Ubicación del servicio de kibana: 
 setup.kibana:
-  host: '172.20.0.10:5601'
+  host: 'elk:5601'
 
 # Modulos activos
 metricbeat.config:
@@ -35,6 +35,9 @@ processors:
   - add_cloud_metadata: ~
 
 output.elasticsearch:
-  hosts: '${ELASTICSEARCH_HOSTS:172.20.0.10:9200}'
+  hosts: '${ELASTICSEARCH_HOSTS:elk:9200}'
   username: '${ELASTICSEARCH_USERNAME:}'
   password: '${ELASTICSEARCH_PASSWORD:}'
+
+# Habilitar dashboards
+setup.dashboards.enabled: true

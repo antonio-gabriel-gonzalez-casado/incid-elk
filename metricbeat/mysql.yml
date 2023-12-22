@@ -2,4 +2,4 @@
   metricsets: ["status"]
   enabled: true
   period: 10s
-  hosts: ["root:my-secret-pw@tcp(172.20.0.10:3306)/"]
+  hosts: ["root:my-secret-pw@tcp(mysql:3306)/"]
